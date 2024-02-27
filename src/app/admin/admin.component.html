@@ -17,25 +17,24 @@
 
 
   <div class="admin-content">
-      <table>
-
-          <!--TABLE HRADER-->
-          <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Gender</th>
-              <th>Date of Birth</th>
-              <th>Course</th>
-              <th>Marks</th>
-              <th>Percentage</th>
-              <th>Fees</th>
-              <th></th>
-              <th>
-                  <button class="insert-button" (click)="OnInsertClicked()">
-                      <i class="fa fa-plus" aria-hidden="true"></i>
-                  </button>
-              </th>
-          </tr>
+      <table >
+        <!--TABLE HRADER-->
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Date of Birth</th>
+            <th>Course</th>
+            <th>Marks</th>
+            <th>Percentage</th>
+            <th>Fees</th>
+            <th></th>
+            <th>
+                <button class="insert-button" (click)="OnInsertClicked()">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                </button>
+            </th>
+        </tr>
           <!--TABLE HEADER ENDS-->
 
           <!--TR FOR INSERING A NEW STUDENT-->
@@ -45,7 +44,8 @@
                   <input type="text" #name>
               </td>
               <td>
-                  <select name="gender" class="select-gender-course" #gender>
+                  <select name="gender" class="select-gender-course" [(ngModel)]="filterText">
+                      <option value="All">All</option>
                       <option value="Male">Male</option>
                       <option value="Female">Female</option>
                   </select>
@@ -81,7 +81,7 @@
           <!--INSERT NEW STUDENT ROW ENDS-->
 
           <!--DISPLAY ALL STUDENTS FROM STUDENTS ARRAY-->
-          <tr *ngFor="let std of students">
+          <tr *ngFor="let std of students | filter: filterText">
               <td>{{ std.id }}</td>
 
               <td *ngIf="!isEditing || std.id !== stdIdToEdit">{{ std.name }}</td>
@@ -118,7 +118,7 @@
 
               <td>{{ (std.marks) | percentage: totalMarks: 2}}</td>
 
-              <td *ngIf="!isEditing || std.id !== stdIdToEdit">{{ std.fee | currency: 'JPY': true: '3.0-0'}}</td>
+              <td *ngIf="!isEditing || std.id !== stdIdToEdit">{{ std.fee | currency: 'JPY': 'symbol': '3.0-0'}}</td>
               <td *ngIf="isEditing && std.id === stdIdToEdit">
                   <input type="number" min="0" [value]="std.fee" #editFee>
               </td>
