@@ -8,11 +8,12 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StudentService } from '../Services/student.service';
+import { PercentagePipe } from './../Pipes/percentage.pipe';
 
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, PercentagePipe],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss',
 })
