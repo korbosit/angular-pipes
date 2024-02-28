@@ -5,8 +5,6 @@ import { Student } from '../Models/Students';
   providedIn: 'root',
 })
 export class StudentService {
-  constructor() {}
-
   students: Student[] = [
     new Student(
       1,
@@ -62,7 +60,7 @@ export class StudentService {
       320,
       799
     ),
-  ];
+  ]; //0x12345
 
   totalMarks: number = 600;
 
@@ -70,5 +68,23 @@ export class StudentService {
     let id = this.students.length + 1;
     let student = new Student(id, name, gender, dob, course, marks, fee);
     this.students.push(student);
+
+    // let studentCopy = [...this.students];//0x34567
+    // studentCopy.push(student);
+    // this.students = studentCopy;
+  }
+
+  filterStudentByGender(filterBy: string) {
+    if (
+      filterBy.toLowerCase() === 'all' ||
+      filterBy === '' ||
+      this.students.length === 0
+    ) {
+      return this.students;
+    } else {
+      return this.students.filter((std) => {
+        return std.gender.toLowerCase() === filterBy.toLowerCase();
+      });
+    }
   }
 }
